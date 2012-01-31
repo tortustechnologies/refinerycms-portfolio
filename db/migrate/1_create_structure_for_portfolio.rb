@@ -1,10 +1,12 @@
 class CreateStructureForPortfolio < ActiveRecord::Migration
 
   def self.up
-    create_table :images_portfolio_entries, :id => false, :force => true do |t|
+    create_table :images_portfolio_entries, :force => true do |t|
       t.integer :image_id
       t.integer :portfolio_entry_id
+      t.string  :link
       t.integer :position
+      t.timestamps
     end
 
     # people should be allowed to have the same image twice, if they really want to.
@@ -18,6 +20,12 @@ class CreateStructureForPortfolio < ActiveRecord::Migration
       t.integer  :rgt
       t.integer  :depth
       t.integer  :title_image_id
+
+      t.string :transitions, :default => 'fade'
+      t.integer :pause_time, :default => 5000
+      t.integer :anim_speed, :default => 1250
+      t.boolean :random_order, :default => false, :null => false
+
       t.timestamps
     end
 
