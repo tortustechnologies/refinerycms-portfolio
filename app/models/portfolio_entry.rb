@@ -29,6 +29,8 @@ class PortfolioEntry < ActiveRecord::Base
     }.compact
   end
 
+  # This is done to eliminate the need to submit the id of the
+  # ImagesPortfolioEntry records to update, as far as I can tell.
   def images_portfolio_entries_attributes=(data)
     logger.debug "!!!! " + data.inspect
     ImagesPortfolioEntry.delete_all(:portfolio_entry_id => self.id)
