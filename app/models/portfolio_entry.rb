@@ -28,6 +28,22 @@ class PortfolioEntry < ActiveRecord::Base
       end
     }.compact
   end
+
+  def images_portfolio_entries_attributes=(data)
+    logger.debug "!!!! " + data.inspect
+    ImagesPortfolioEntry.delete_all(:portfolio_entry_id => self.id)
+
+    (0..(data.length-1)).each do |i|
+      unless (entry_data = data[i.to_s]).nil? or entry_data['image_id'].blank?
+        entry = self.images_portfolio_entries.new({
+          :image_id => entry_data['image_id'].to_i,
+          :position => i,
+          :link => entry_data['link']
+        })
+        self.images_portfolio_entries << entry
+      end
+    end
+  end
   
   def image_titles
     self.images.collect{|i| i.title}
