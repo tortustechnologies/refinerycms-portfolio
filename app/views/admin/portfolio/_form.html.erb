@@ -65,11 +65,12 @@
                   <%= image_form.hidden_field :id %>
                   <%= image_fu image_form.object, '135x135#c' %>
                   <div class='textarea_wrapper_for_wym'>
-                    <% index = image_form.object_name.split('[').last.split(']').first.to_i %>
-                    <%= hidden_field_tag "#{f.object_name}[images_portfolio_entries_attributes][#{index}][id]",
-                      f.object.images_portfolio_entries[index].id %>
-                    <%= text_area_tag "#{f.object_name}[images_portfolio_entries_attributes][#{index}][link]",
-                      f.object.images_portfolio_entries[index].link,
+                    <%
+                      index = image_form.object_name.split('[').last.split(']').first.to_i
+                      name_prefix = "#{f.object_name}[images_portfolio_entries_attributes][#{index}]" 
+                    %>
+                    <%= hidden_field_tag "#{name_prefix}[image_id]", f.object.image_id_for_entry_index(index) %>
+                    <%= text_area_tag "#{name_prefix}[link]", f.object.link_for_entry_index(index),
                         :id => "page_captions_#{index}",
                         :class => 'page_caption' %>
                   </div>
@@ -77,6 +78,12 @@
               <% end %>
               <li class='empty'>
                 <%= hidden_field_tag "portfolio_entry[images_attributes][#{@portfolio_entry.images.size}][id]" %>
+                <% name_prefix = "portfolio_entry[images_portfolio_entries_attributes][#{f.object.images_portfolio_entries.size}]" %>
+                <%= hidden_field_tag "#{name_prefix}[image_id]", "" %>
+                <%= text_area_tag "#{name_prefix}[link]", "",
+                  :style => "display: none;",
+                  :id => "page_captions_#{f.object.images_portfolio_entries.size}",
+                  :class => 'page_caption' %>
               </li>
             </ul>
           </div>
