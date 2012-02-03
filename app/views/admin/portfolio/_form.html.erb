@@ -70,8 +70,9 @@
                       name_prefix = "#{f.object_name}[images_attributes][#{index}]" 
                     -%>
                     <%= text_area_tag "#{name_prefix}[link]", f.object.link_for_entry_index(index),
-                        :id => "page_captions_#{index}",
-                        :class => 'page_caption' %>
+                      :id => "page_captions_#{index}",
+                      :class => 'page_caption',
+                      :placeholder => 'Link' %>
                   </div>
                 </li>
               <% end %>
