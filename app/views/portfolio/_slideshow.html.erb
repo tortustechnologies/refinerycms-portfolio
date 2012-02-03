@@ -1,0 +1,24 @@
+<%
+  geometry = options.delete(:geometry)
+  div_id = portfolio.friendly_id
+-%>
+
+<% content_for :scripts do -%>
+<script type="text/javascript">
+(function ($) {
+  $(window).load(function () {
+    $('#<%= div_id %>').nivoSlider(
+      <%= raw options.to_json %>
+    );
+  });
+})(jQuery);
+</script>
+<% end -%>
+
+<div id="<%= div_id %>" class="nivoSlider">
+  <% portfolio.images_portfolio_entries.each do |entry| -%>
+    <%= image_fu entry.image, geometry,
+      :alt => "",
+      :title => entry.title %>
+  <% end -%>
+</div>

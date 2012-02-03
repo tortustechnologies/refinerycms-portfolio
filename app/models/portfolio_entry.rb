@@ -46,6 +46,7 @@ class PortfolioEntry < ActiveRecord::Base
   end
 
   alias_attribute :content, :body
+  alias_attribute :effect, :transitions
 
   def image_id_for_entry_index index
     id = self.images_portfolio_entries[index].image_id
