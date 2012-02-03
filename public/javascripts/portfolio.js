@@ -43,22 +43,18 @@ reindex_images = function() {
     $(input).attr('id', $(input).attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
   });
   $('#portfolio_images li input:text').each(function(i, input){
-    // make the image's name consistent with its position.
     parts = $(input).attr('name').split(']');
     parts[1] = ('[' + i)
     $(input).attr('name', parts.join(']'));
 
-    // make the image's id consistent with its position.
     $(input).attr('id', $(input).attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
   });
   $('#portfolio_images li textarea.image_link').each(function(i, input){
     var element = $(input);
-    // make the image's name consistent with its position.
     parts = element.attr('name').split(']');
     parts[1] = ('[' + i)
     element.attr('name', parts.join(']'));
 
-    // make the image's id consistent with its position.
     element.attr('id', element.attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
   });
 }
