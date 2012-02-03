@@ -21,7 +21,7 @@ class PortfolioEntry < ActiveRecord::Base
 
   def images_attributes=(data)
     # Create records in the images_portfolio_entries_join table instead of
-    # images. This delete_all actually clears the collection too.
+    # images. This delete_all actually clears the collection array too.
     ImagesPortfolioEntry.delete_all(:portfolio_entry_id => self.id)
 
     (0..(data.length-1)).each do |i|
