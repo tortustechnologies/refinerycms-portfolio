@@ -42,6 +42,15 @@ reindex_images = function() {
     // make the image's id consistent with its position.
     $(input).attr('id', $(input).attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
   });
+  $('#portfolio_images li input:text').each(function(i, input){
+    // make the image's name consistent with its position.
+    parts = $(input).attr('name').split(']');
+    parts[1] = ('[' + i)
+    $(input).attr('name', parts.join(']'));
+
+    // make the image's id consistent with its position.
+    $(input).attr('id', $(input).attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
+  });
   $('#portfolio_images li textarea.image_link').each(function(i, input){
     var element = $(input);
     // make the image's name consistent with its position.
@@ -59,6 +68,7 @@ image_added = function(image) {
   new_list_item = (current_list_item = $('li.empty')).clone();
   image_id = $(image).attr('id').replace('image_', '');
   current_list_item.find('input:hidden').val(image_id);
+  current_list_item.find('input.image_title').val(image.alt || '');
 
   $("<img />").attr({
     title: $(image).attr('title')

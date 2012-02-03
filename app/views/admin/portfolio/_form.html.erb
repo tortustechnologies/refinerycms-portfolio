@@ -69,6 +69,11 @@
                       index = image_form.object_name.split('[').last.split(']').first.to_i
                       name_prefix = "#{f.object_name}[images_attributes][#{index}]" 
                     -%>
+                    <%= text_field_tag "#{name_prefix}[title]", f.object.title_for_entry_index(index),
+                      :placeholder => 'Title',
+                      :class => 'image_title',
+                      :size => 17 %>
+                    <br/>
                     <%= text_area_tag "#{name_prefix}[link]", f.object.link_for_entry_index(index),
                       :id => "image_links_#{index}",
                       :class => 'image_link',
@@ -80,6 +85,11 @@
                 <% name_prefix = "portfolio_entry[images_attributes][#{f.object.images.size}]" -%>
                 <%= hidden_field_tag "#{name_prefix}[id]" %>
                 <div class='textarea_wrapper_for_wym'>
+                  <%= text_field_tag "#{name_prefix}[title]", nil,
+                    :placeholder => 'Title',
+                    :class => 'image_title',
+                    :size => 17 %>
+                  <br/>
                   <%= text_area_tag "#{name_prefix}[link]", "",
                     :class => 'image_link',
                     :placeholder => 'Link' %>

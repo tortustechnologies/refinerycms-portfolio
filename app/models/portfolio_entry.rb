@@ -29,7 +29,8 @@ class PortfolioEntry < ActiveRecord::Base
         entry = self.images_portfolio_entries.new(
           :image_id => image_data['id'].to_i,
           :position => i,
-          :link => image_data['link']
+          :link => image_data['link'],
+          :title => image_data['title']
         )
         self.images_portfolio_entries << entry
       end
@@ -56,6 +57,12 @@ class PortfolioEntry < ActiveRecord::Base
     link = self.images_portfolio_entries[index].link
     logger.debug "!!!! link_for_entry_index(#{index}) = #{link}"
     link
+  end
+
+  def title_for_entry_index index
+    title = self.images_portfolio_entries[index].title
+    logger.debug "!!!! title_for_entry_index(#{index}) = #{title}"
+    title
   end
 
 end
