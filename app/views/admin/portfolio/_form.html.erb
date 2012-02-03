@@ -70,8 +70,8 @@
                       name_prefix = "#{f.object_name}[images_attributes][#{index}]" 
                     -%>
                     <%= text_area_tag "#{name_prefix}[link]", f.object.link_for_entry_index(index),
-                      :id => "page_captions_#{index}",
-                      :class => 'page_caption',
+                      :id => "image_links_#{index}",
+                      :class => 'image_link',
                       :placeholder => 'Link' %>
                   </div>
                 </li>
@@ -81,9 +81,7 @@
                 <%= hidden_field_tag "#{name_prefix}[id]" %>
                 <div class='textarea_wrapper_for_wym'>
                   <%= text_area_tag "#{name_prefix}[link]", "",
-                    :style => "display: none;",
-                    :id => "page_captions_#{f.object.images.size}",
-                    :class => 'page_caption',
+                    :class => 'image_link',
                     :placeholder => 'Link' %>
                 </div>
               </li>

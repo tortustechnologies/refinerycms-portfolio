@@ -42,6 +42,16 @@ reindex_images = function() {
     // make the image's id consistent with its position.
     $(input).attr('id', $(input).attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
   });
+  $('#portfolio_images li textarea.image_link').each(function(i, input){
+    var element = $(input);
+    // make the image's name consistent with its position.
+    parts = element.attr('name').split(']');
+    parts[1] = ('[' + i)
+    element.attr('name', parts.join(']'));
+
+    // make the image's id consistent with its position.
+    element.attr('id', element.attr('id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_'+i));
+  });
 }
 
 image_added = function(image) {
@@ -54,7 +64,7 @@ image_added = function(image) {
     title: $(image).attr('title')
     , alt: $(image).attr('alt')
     , src: $(image).attr('data-grid') // use 'grid' size that is built into Refinery CMS (135x135#c).
-  }).appendTo(current_list_item);
+  }).prependTo(current_list_item);
 
   current_list_item.attr('id', 'image_' + image_id).removeClass('empty');
 
