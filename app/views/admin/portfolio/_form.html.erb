@@ -79,10 +79,13 @@
               <li class='empty'>
                 <% name_prefix = "portfolio_entry[images_attributes][#{f.object.images.size}]" -%>
                 <%= hidden_field_tag "#{name_prefix}[id]" %>
-                <%= text_area_tag "#{name_prefix}[link]", "",
-                  :style => "display: none;",
-                  :id => "page_captions_#{f.object.images.size}",
-                  :class => 'page_caption' %>
+                <div class='textarea_wrapper_for_wym'>
+                  <%= text_area_tag "#{name_prefix}[link]", "",
+                    :style => "display: none;",
+                    :id => "page_captions_#{f.object.images.size}",
+                    :class => 'page_caption',
+                    :placeholder => 'Link' %>
+                </div>
               </li>
             </ul>
           </div>
