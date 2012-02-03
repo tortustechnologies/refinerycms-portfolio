@@ -5,8 +5,17 @@ class ImagesPortfolioEntry < ActiveRecord::Base
 
   validates_presence_of :portfolio_entry_id, :image_id
 
-  before_save do |image_portfolio_entry|
-    image_portfolio_entry.position ||= (ImagesPortfolioEntry.maximum(:position) || -1) + 1
+  before_validation :strip_whitespace
+  before_save :move_to_bottom
+
+private
+
+  def strip_whitespace
+    self.link = self.link.strip if self.link
+  end
+
+  def move_to_bottom
+    self.position ||= (ImagesPortfolioEntry.maximum(:position) || -1) + 1
   end
 
 end
