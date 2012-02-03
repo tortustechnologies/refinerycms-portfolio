@@ -20,8 +20,8 @@ class PortfolioEntry < ActiveRecord::Base
   #accepts_nested_attributes_for :images_portfolio_entries, :allow_destroy => false
 
   def images_attributes=(data)
-    logger.debug "!!!! images_attributes: #{data.inspect}"
-
+    # Create records in the images_portfolio_entries_join table instead of
+    # images. This delete_all actually clears the collection too.
     ImagesPortfolioEntry.delete_all(:portfolio_entry_id => self.id)
 
     (0..(data.length-1)).each do |i|
