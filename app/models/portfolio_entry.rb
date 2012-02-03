@@ -17,31 +17,20 @@ class PortfolioEntry < ActiveRecord::Base
   has_many :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC' 
   has_many :images, :through => :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC'
   accepts_nested_attributes_for :images, :allow_destroy => false
-  accepts_nested_attributes_for :images_portfolio_entries, :allow_destroy => false
+  #accepts_nested_attributes_for :images_portfolio_entries, :allow_destroy => false
 
   def images_attributes=(data)
-    self.images.clear
+    logger.debug "!!!! images_attributes: #{data.inspect}"
 
-    self.images = (0..(data.length-1)).collect { |i|
-      unless (image_id = data[i.to_s]['id'].to_i) == 0
-        Image.find(image_id) rescue nil
-      end
-    }.compact
-  end
-
-  # This is done to eliminate the need to submit the id of the
-  # ImagesPortfolioEntry records to update, as far as I can tell.
-  def images_portfolio_entries_attributes=(data)
-    logger.debug "!!!! " + data.inspect
     ImagesPortfolioEntry.delete_all(:portfolio_entry_id => self.id)
 
     (0..(data.length-1)).each do |i|
-      unless (entry_data = data[i.to_s]).nil? or entry_data['image_id'].blank?
-        entry = self.images_portfolio_entries.new({
-          :image_id => entry_data['image_id'].to_i,
+      unless (image_data = data[i.to_s]).nil? or image_data['id'].blank?
+        entry = self.images_portfolio_entries.new(
+          :image_id => image_data['id'].to_i,
           :position => i,
-          :link => entry_data['link']
-        })
+          :link => image_data['link']
+        )
         self.images_portfolio_entries << entry
       end
     end
