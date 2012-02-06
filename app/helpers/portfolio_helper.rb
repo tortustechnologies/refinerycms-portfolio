@@ -28,7 +28,7 @@ module PortfolioHelper
         :pauseTime => portfolio.pause_time,
         :directionNav => portfolio.direction_nav,
         :controlNav => portfolio.control_nav,
-        :effect => portfolio.effect,
+        :effect => portfolio.effect.blank? ? 'fade' : portfolio.effect,
         :captionOpacity => 0.0
       })
       render "portfolio/slideshow",
