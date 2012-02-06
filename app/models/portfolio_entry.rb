@@ -66,4 +66,35 @@ class PortfolioEntry < ActiveRecord::Base
     title
   end
 
+  def effect_values= values
+    if values.respond_to? :join
+      self.effect = values.join(",")
+    end
+  end
+
+  def effect_values
+    self.effect.split "," if self.effect
+  end
+
+  EFFECTS = %w(
+    random
+    fade
+    sliceDown
+    sliceDownLeft
+    sliceUp
+    sliceUpLeft
+    sliceUpDown
+    sliceUpDownLeft
+    fold
+    fade
+    random
+    slideInRight
+    slideInLeft
+    boxRandom
+    boxRain
+    boxRainReverse
+    boxRainGrow
+    boxRainGrowReverse
+  )
+
 end

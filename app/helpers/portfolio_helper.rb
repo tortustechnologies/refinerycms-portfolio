@@ -38,4 +38,33 @@ module PortfolioHelper
     end
   end
 
+  def checkbox_group object_name, property_name, possible_values, options = {}
+    group_name = html_escape("#{object_name.to_s}[#{property_name.to_s}_values][]")
+    options.reverse_merge! :other_field_label => "Other:"
+    object_params = params[object_name.to_sym] || nil
+    if object_params
+      group_values = object_params["#{property_name.to_s}_values".to_sym]
+    else
+      group_values = []
+    end
+
+    tags = []
+    possible_values.each do |value|
+      tags << check_box_tag(group_name, html_escape(value),
+        (!group_values.empty? && group_values.include?(value))) +
+        "&nbsp;".html_safe +
+        html_escape(value)
+    end
+    html = tags.join "<br />"
+
+    if options[:include_other_field]
+      other_field_value = group_values.last
+      html = html + "<br />" +
+        html_escape(options[:other_field_label].to_s) + "<br />" +
+        text_field_tag(group_name, other_field_value, :size => 40)
+    end
+
+    html.html_safe
+  end
+
 end

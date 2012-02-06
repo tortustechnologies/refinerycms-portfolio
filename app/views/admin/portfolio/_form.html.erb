@@ -22,6 +22,22 @@
     <%= f.required_label t('.title') %>
     <%= f.text_field :title, :class => "larger widest" %>
   </div>
+
+  <div class='field'>
+    <%= f.label :pause_time, 'Time to pause on each slide (milliseconds)' %>
+    <%= f.text_field :pause_time %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :anim_speed, 'Transition length (milliseconds)' %>
+    <%= f.text_field :anim_speed %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :effect, 'Transitions to use' %>
+    <%= checkbox_group f.object, :effect, PortfolioEntry::EFFECTS %>
+  </div>
+
   <% unless RefinerySetting.find_or_set(:portfolio_has_no_index, true)%>
     <div class='field'>
       <%= f.label :image -%>
