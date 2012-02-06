@@ -33,11 +33,6 @@
     <%= f.text_field :anim_speed %>
   </div>
 
-  <div class='field'>
-    <%= f.label :effect, 'Transitions to use' %>
-    <%= checkbox_group f.object, :effect, PortfolioEntry::EFFECTS %>
-  </div>
-
   <% unless RefinerySetting.find_or_set(:portfolio_has_no_index, true)%>
     <div class='field'>
       <%= f.label :image -%>
