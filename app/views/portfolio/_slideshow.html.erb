@@ -17,8 +17,11 @@
 
 <div id="<%= div_id %>" class="nivoSlider">
   <% portfolio.images_portfolio_entries.each do |entry| -%>
-    <%= image_fu entry.image, geometry,
-      :alt => "",
-      :title => entry.title %>
+    <% image = image_fu(entry.image, geometry, :alt => "", :title => entry.title) -%>
+    <% if not entry.link.blank? %>
+      <a href="<%= entry.link %>"><%= image %></a>
+    <% else %>
+      <%= image %>
+    <% end -%>
   <% end -%>
 </div>
