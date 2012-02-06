@@ -1,12 +1,41 @@
 require 'globalize3'
 
 class PortfolioEntry < ActiveRecord::Base
+  # Constants
+  alias_attribute :effect, :transitions
+  EFFECT_OPTIONS = [
+    ["Random",              "random"],
+    ["Fade",                "fade"],
+    ["Slice down",          "sliceDown"],
+    ["Slice down left",     "sliceDownLeft"],
+    ["Slice up",            "sliceUp"],
+    ["Slice up left",       "sliceUpLeft"],
+    ["Slice up down",       "sliceUpDown"],
+    ["Slice up down left",  "sliceUpDownLeft"],
+    ["Fold",                "fold"],
+    ["Slide in right",      "slideInRight"],
+    ["Slide in left",       "slideInLeft"],
+    ["Box random",          "boxRandom"],
+    ["Box rain",            "boxRain"],
+    ["Box rain reverse",    "boxRainReverse"],
+    ["Box rain grow",       "boxRainGrow"],
+    ["Box rain grow reverse", "boxRainGrowReverse"]
+  ]
+  EFFECT_VALUES = EFFECT_OPTIONS.collect(&:last)
+  DEFAULT_EFFECT = 'fade'
+
   belongs_to :title_image, :class_name => 'Image'
 
   translates :title, :body if self.respond_to?(:translates)
   attr_accessor :locale # to hold temporarily
   
+  # Validations
   validates :title, :presence => true
+  validates :effect, :presence => true
+  validates :anim_speed, :presence => true,
+    :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates :pause_time, :presence => true,
+    :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
 
   # call to gems included in refinery.
   has_friendly_id :title, :use_slug => true
@@ -17,7 +46,15 @@ class PortfolioEntry < ActiveRecord::Base
   has_many :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC' 
   has_many :images, :through => :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC'
   accepts_nested_attributes_for :images, :allow_destroy => false
-  #accepts_nested_attributes_for :images_portfolio_entries, :allow_destroy => false
+
+  # Callbacks
+
+  before_validation :set_default_values
+  def set_default_values
+    self.effect = DEFAULT_EFFECT if self.effect.blank?
+  end
+
+  # Properties
 
   def images_attributes=(data)
     # Create records in the images_portfolio_entries_join table instead of
@@ -46,7 +83,6 @@ class PortfolioEntry < ActiveRecord::Base
   end
 
   alias_attribute :content, :body
-  alias_attribute :effect, :transitions
 
   def image_id_for_entry_index index
     id = self.images_portfolio_entries[index].image_id
@@ -67,34 +103,15 @@ class PortfolioEntry < ActiveRecord::Base
   end
 
   def effect_values= values
-    if values.respond_to? :join
-      self.effect = values.join(",")
+    unless values and values.is_a?(Array) and not values.empty?
+      values = [DEFAULT_EFFECT]
     end
+    self.effect = values.collect(&:strip).join(",")
   end
 
   def effect_values
     self.effect.split "," if self.effect
   end
 
-  EFFECTS = %w(
-    random
-    fade
-    sliceDown
-    sliceDownLeft
-    sliceUp
-    sliceUpLeft
-    sliceUpDown
-    sliceUpDownLeft
-    fold
-    fade
-    random
-    slideInRight
-    slideInLeft
-    boxRandom
-    boxRain
-    boxRainReverse
-    boxRainGrow
-    boxRainGrowReverse
-  )
 
 end

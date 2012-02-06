@@ -24,13 +24,27 @@
   </div>
 
   <div class='field'>
-    <%= f.label :pause_time, 'Time to pause on each slide (milliseconds)' %>
+    <%= f.label :pause_time, t('.pause_time') %>
     <%= f.text_field :pause_time %>
   </div>
 
   <div class='field'>
-    <%= f.label :anim_speed, 'Transition length (milliseconds)' %>
+    <%= f.label :anim_speed, t('.anim_speed') %>
     <%= f.text_field :anim_speed %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :effect, t('.effect') %>
+    <ul style="list-style-type: none;">
+      <% PortfolioEntry::EFFECT_OPTIONS.each do |effect| -%>
+        <li>
+          <%= check_box_tag 'portfolio_entry[effect_values][]',
+            effect[1],
+            f.object.effect_values.include?(effect[1]) -%>
+          <%= effect[0] %>
+        </li>
+      <% end -%>
+    </ul>
   </div>
 
   <% unless RefinerySetting.find_or_set(:portfolio_has_no_index, true)%>
