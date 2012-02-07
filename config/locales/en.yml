@@ -19,6 +19,7 @@ en:
         confirm_delete_entry_title: "Remove this entry forever"
       form:
         title: Title
+        milliseconds: '1000 milliseconds = 1 second'
         pause_time: 'Time to pause on each slide (milliseconds)'
         anim_speed: 'Transition length (milliseconds)'
         slide_order: 'Slide order'

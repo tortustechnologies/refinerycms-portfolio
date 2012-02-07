@@ -24,12 +24,18 @@
   </div>
 
   <div class='field'>
-    <%= f.label :pause_time, t('.pause_time') %>
+    <span class='label_with_help'>
+      <%= f.label :pause_time, t('.pause_time') %>
+      <%= refinery_help_tag t('.milliseconds') %>
+    </span>
     <%= f.text_field :pause_time %>
   </div>
 
   <div class='field'>
-    <%= f.label :anim_speed, t('.anim_speed') %>
+    <span class='label_with_help'>
+      <%= f.label :anim_speed, t('.anim_speed') %>
+      <%= refinery_help_tag t('.milliseconds') %>
+    </span>
     <%= f.text_field :anim_speed %>
   </div>
 
