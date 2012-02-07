@@ -86,19 +86,19 @@ class PortfolioEntry < ActiveRecord::Base
 
   def image_id_for_entry_index index
     id = self.images_portfolio_entries[index].image_id
-    logger.debug "!!!! image_id_for_entry_index(#{index}) = #{id}"
+    #logger.debug "!!!! image_id_for_entry_index(#{index}) = #{id}"
     id
   end
 
   def link_for_entry_index index
     link = self.images_portfolio_entries[index].link
-    logger.debug "!!!! link_for_entry_index(#{index}) = #{link}"
+    #logger.debug "!!!! link_for_entry_index(#{index}) = #{link}"
     link
   end
 
   def title_for_entry_index index
     title = self.images_portfolio_entries[index].title
-    logger.debug "!!!! title_for_entry_index(#{index}) = #{title}"
+    #logger.debug "!!!! title_for_entry_index(#{index}) = #{title}"
     title
   end
 
