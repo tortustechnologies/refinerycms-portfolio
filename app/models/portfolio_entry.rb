@@ -113,5 +113,7 @@ class PortfolioEntry < ActiveRecord::Base
     self.effect.split "," if self.effect
   end
 
+  def random_order?; random_order; end
+  def random_start?; false; end
 
 end
