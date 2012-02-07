@@ -32,8 +32,9 @@ module PortfolioHelper
         :pauseTime => portfolio.pause_time,
         :directionNav => portfolio.direction_nav,
         :controlNav => portfolio.control_nav,
-        :effect => portfolio.effect.blank? ? 'fade' : portfolio.effect,
-        :captionOpacity => 0.0
+        :effect => portfolio.effect.blank? ? Portfolio::DEFAULT_EFFECT : portfolio.effect,
+        :captionOpacity => 0.0,
+        :randomStart => portfolio.random_start?
       })
       render "portfolio/slideshow",
         :portfolio_id => portfolio_id,
