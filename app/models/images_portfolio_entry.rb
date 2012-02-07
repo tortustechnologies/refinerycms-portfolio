@@ -17,6 +17,10 @@ class ImagesPortfolioEntry < ActiveRecord::Base
     end
   end
 
+  # Scopes
+  scope :by_random, :order => 'random()'
+  scope :by_position, :order => 'images_portfolio_entries.position ASC'
+
   # Properties
 
   # if no title is set, falls back to image's title
