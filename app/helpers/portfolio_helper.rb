@@ -18,7 +18,11 @@ module PortfolioHelper
       stylesheet_link_tag "nivo-slider.css"
     end
     content_for :scripts do
-      javascript_include_tag "jquery.nivo.slider.pack.js"
+      if Rails.env.production?
+        javascript_include_tag "jquery.nivo.slider.pack.js"
+      else
+        javascript_include_tag "jquery.nivo.slider.js"
+      end
     end
     portfolio = PortfolioEntry.find(portfolio_id) rescue nil
     if portfolio and portfolio.images_portfolio_entries.any?
