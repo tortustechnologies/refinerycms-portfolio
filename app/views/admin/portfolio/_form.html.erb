@@ -36,12 +36,19 @@
   <div class='field'>
     <%= f.label :effect, t('.effect') %>
     <ul style="list-style-type: none;">
-      <% PortfolioEntry::EFFECT_OPTIONS.each do |effect| -%>
+      <%
+        PortfolioEntry::EFFECT_OPTIONS.each do |effect|
+          effect_description = effect[0]
+          effect_name = effect[1]
+      -%>
         <li>
           <%= check_box_tag 'portfolio_entry[effect_values][]',
-            effect[1],
-            f.object.effect_values.include?(effect[1]) -%>
-          <%= effect[0] %>
+            effect_name,
+            f.object.effect_values.include?(effect_name),
+            :id => "portfolio_entry_effect_values_#{effect_name}" -%>
+          <%= label_tag "portfolio_entry_effect_values_#{effect_name}",
+            effect_description,
+            :class => 'stripped' -%>
         </li>
       <% end -%>
     </ul>
