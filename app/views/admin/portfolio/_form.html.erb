@@ -34,6 +34,16 @@
   </div>
 
   <div class='field'>
+    <%= f.label :random_order, t('.slide_order') %>
+    <span class='radio'>
+      <%= f.radio_button :random_order, false, :id => 'portfolio_entry_random_order_false' %>
+      <%= f.label 'random_order_false', t('.sequential'), :class => 'stripped' %>
+      <%= f.radio_button :random_order, true, :id => 'portfolio_entry_random_order_true' %>
+      <%= f.label 'random_order_true', t('.random'), :class => 'stripped' %>
+    </span>
+  </div>
+
+  <div class='field'>
     <%= f.label :effect, t('.effect') %>
     <ul style="list-style-type: none;">
       <%

@@ -1,6 +1,12 @@
 <%
   geometry = options.delete(:geometry)
   div_id = portfolio.friendly_id
+  slides = portfolio.images_portfolio_entries.unscoped
+  if portfolio.random_order?
+    slides = slides.by_random
+  else
+    slides = slides.by_position
+  end
 -%>
 
 <% content_for :scripts do -%>
@@ -16,7 +22,7 @@
 <% end -%>
 
 <div id="<%= div_id %>" class="nivoSlider">
-  <% portfolio.images_portfolio_entries.each do |entry| -%>
+  <% slides.each do |entry| -%>
     <% image = image_fu(entry.image, geometry, :alt => "", :title => entry.title) -%>
     <% if not entry.link.blank? %>
       <a href="<%= entry.link %>"><%= image %></a>
