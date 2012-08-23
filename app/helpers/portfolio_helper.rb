@@ -17,7 +17,7 @@ module PortfolioHelper
     content_for :stylesheets do
       stylesheet_link_tag "nivo-slider.css"
     end
-    content_for :scripts do
+    content_for :javascripts do
       if Rails.env.production?
         javascript_include_tag "jquery.nivo.slider.pack.js"
       else
